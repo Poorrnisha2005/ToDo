@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>To-Do List</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-image: url('https://www.creative-calendars.com/wp-content/uploads/cdn/uploads/2014/09/printable-to-do-list.jpg'); /* Replace 'your-background-image-url.jpg' with the URL of your background image */
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      color: #333; /* Text color for the entire page */
+    }
+    h1 {
+      color: red; /* Text color for the heading */
+      background-color: rgba(0, 0, 0, 0.5); /* Background color for the heading with opacity */
+      padding: 10px; /* Add padding to the heading for better visibility */
+    }
+    #todo-list {
+      margin-top: 20px;
+      background-color: rgba(255, 255, 255, 0.8); /* Mild background color for the to-do list container with opacity */
+      padding: 20px; /* Add padding for better visibility */
+      border-radius: 10px; /* Add border radius for rounded corners */
+    }
+    .todo-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    .todo-item input[type="checkbox"] {
+      margin-right: 10px;
+    }
+    .todo-item input[type="text"] {
+      width: 200px;
+    }
+  </style>
+</head>
+<body>
+<center>
+<h1>To-Do List</h1>
+
+<div id="todo-form">
+  <input type="text" id="todo-input" placeholder="Enter task">
+  <button onclick="addTodo()">Add</button>
+</div>
+
+<div id="todo-list">
+  <!-- To-Do items will be dynamically added here -->
+</div>
+
+<script>
+  function addTodo() {
+    var input = document.getElementById("todo-input");
+    var task = input.value;
+    if (task.trim() !== "") {
+      var todoItem = createTodoItem(task);
+      var todoList = document.getElementById("todo-list");
+      todoList.appendChild(todoItem);
+      input.value = "";
+    }
+  }
+
+  function createTodoItem(task) {
+    var todoItem = document.createElement("div");
+    todoItem.classList.add("todo-item");
+
+    var checkbox = document.createElement("input");
+    checkbox.type = "checkbox";
+    checkbox.addEventListener("change", function() {
+      if (checkbox.checked) {
+        taskText.style.textDecoration = "line-through";
+      } else {
+        taskText.style.textDecoration = "none";
+      }
+    });
+
+    var taskText = document.createElement("input");
+    taskText.type = "text";
+    taskText.value = task;
+    taskText.readOnly = true;
+
+    var deleteButton = document.createElement("button");
+    deleteButton.textContent = "Delete";
+    deleteButton.addEventListener("click", function() {
+      todoItem.remove();
+    });
+
+    todoItem.appendChild(checkbox);
+    todoItem.appendChild(taskText);
+    todoItem.appendChild(deleteButton);
+
+    return todoItem;
+  }
+</script>
+</center>
+</body>
+</html>
